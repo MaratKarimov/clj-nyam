@@ -1,5 +1,7 @@
 # clj-nyam
 
+[![Clojars Project](https://img.shields.io/clojars/v/org.clojars.mkarimov/clj-nyam.svg)](https://clojars.org/org.clojars.mkarimov/clj-nyam)
+
 Simple clojure library, that loads java.util.Properties from classpath and filesystem files.
 
 Inspired by [Maailma](https://github.com/metosin/maailma).
