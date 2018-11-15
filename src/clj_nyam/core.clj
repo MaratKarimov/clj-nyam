@@ -13,15 +13,19 @@
   [isr] (doto (java.util.Properties.) (.load isr)))
 
 (defn load-properties-from-filesystem "Reads configuration part from given path in filesystem."
-  [file-path] (with-open [is (java.io.FileInputStream. file-path)
-                          isr (java.io.InputStreamReader. is default-file-charset)]
-                (create-and-load-properties isr)))
+  [file-path] (if (.exists (io/file file-path))
+                (with-open [is (java.io.FileInputStream. file-path)
+                            isr (java.io.InputStreamReader. is default-file-charset)]
+                  (create-and-load-properties isr))
+                (java.util.Properties.)))
 
 (defn load-properties-from-classpath "Reads configuration part from given path in classpath."
  [file-path] (let [classpath-file-url (io/resource file-path)]
-              (with-open [is (.openStream classpath-file-url)
-                          isr (java.io.InputStreamReader. is default-file-charset)]
-                (create-and-load-properties isr))))
+               (if (some? classpath-file-url)
+                 (with-open [is (.openStream classpath-file-url)
+                             isr (java.io.InputStreamReader. is default-file-charset)]
+                   (create-and-load-properties isr))
+                 (java.util.Properties.))))
 
 (defn reduced-merge-properties "Merge key-values of java.util.Properties instances from different sources to one common instance"
   [file-paths source] (reduce merge-properties (map source file-paths)))

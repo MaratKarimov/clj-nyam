@@ -26,7 +26,7 @@
 (deftest nyam-test
   (testing "Filesystem properties read and merge test"
     (is (= (str test-value-template (- (count temp-files) 1))
-           (.getProperty (build-properties [] temp-files) test-key)))))
+           (.getProperty (build-properties ["not-existed-resource-file"] (concat  ["not-existed-filesystem-file"] temp-files)) test-key)))))
 
 (defn delete-temp-files "Delete temp files"
   [] (doall (map (fn [x] (io/delete-file x true))
