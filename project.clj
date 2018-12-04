@@ -1,4 +1,4 @@
-(defproject org.clojars.mkarimov/clj-nyam "0.1.0-SNAPSHOT"
+(defproject org.clojars.mkarimov/clj-nyam "0.2.0-SNAPSHOT"
   :description "Simple properties reader"
   :url "https://github.com/MaratKarimov/clj-nyam"
   :license {:name "Eclipse Public License"
