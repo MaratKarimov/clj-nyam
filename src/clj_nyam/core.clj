@@ -44,19 +44,19 @@
 ;; spec for merge-properties function
 (spec/fdef merge-properties
       :args (spec/cat
-              :x (inst? (java.util.Properties.))
-              :y (inst? (java.util.Properties.)))
-      :ret (inst? (java.util.Properties.)))
+              :x (partial instance? java.util.Properties)
+              :y (partial instance? java.util.Properties))
+      :ret (partial instance? java.util.Properties))
 
 ;; spec for load-properties-from-filesystem function
 (spec/fdef load-properties-from-filesystem
       :args (spec/cat
               :file-path string?
-              :props (inst? (java.util.Properties.)))
-      :ret (inst? (java.util.Properties.)))
+              :props (partial instance? java.util.Properties))
+      :ret (partial instance? java.util.Properties))
 
 ;; spec for load-properties-from-classpath function
 (spec/fdef load-properties-from-classpath
       :args (spec/cat
               :file-path string?)
-      :ret (inst? (java.util.Properties.)))
+      :ret (partial instance? java.util.Properties))
