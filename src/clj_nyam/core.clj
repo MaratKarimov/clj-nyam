@@ -7,7 +7,7 @@
 
 (defn merge-properties "Merge key-values from one java.util.Properties instance to another"
   ([] (java.util.Properties.))
-  ([x y] (doto (java.util.Properties. x) (.putAll y))))
+  ([x y] (doto (java.util.Properties.) (.putAll x) (.putAll y))))
 
 (defn create-and-load-properties "Create new instance of java.util.Properties and load it from java.io.InputStreamReader."
   [isr] (doto (java.util.Properties.) (.load isr)))
