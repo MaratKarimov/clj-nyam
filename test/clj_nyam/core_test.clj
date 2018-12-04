@@ -12,8 +12,10 @@
           temp-files-names)))
 
 (def test-key "Test key alias" "test.key")
-
 (def test-value-template "Test value template" "test.value")
+
+(def test-resources-key "Test resources key" "test.resource.key")
+(def test-resources-value "Test resources value" "test.resource.value")
 
 (defn generate-test-kv "Generate test key-value pair"
   [i] (str test-key "=" test-value-template i))
@@ -25,8 +27,12 @@
 
 (deftest nyam-test
   (testing "Filesystem properties read and merge test"
-    (is (= (str test-value-template (- (count temp-files) 1))
-           (.getProperty (build-properties ["not-existed-resource-file"] (concat  ["not-existed-filesystem-file"] temp-files)) test-key)))))
+    (let [props (build-properties ["not-existed-resource-file" "test-resources.properties"] (concat  ["not-existed-filesystem-file"] temp-files))]
+      ;; filesystem test
+      (is (= (str test-value-template (- (count temp-files) 1))
+             (.getProperty props test-key)))
+      ;; resources test
+      (is (= (.getProperty props test-resources-key) test-resources-value)))))
 
 (defn delete-temp-files "Delete temp files"
   [] (doall (map (fn [x] (io/delete-file x true))
